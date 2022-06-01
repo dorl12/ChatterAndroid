@@ -20,5 +20,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         });
+
+        // need to change to Chats Activity
+        binding.btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 }
