@@ -3,4 +3,11 @@
     <string name="login_Username">Username</string>
     <string name="login_Password">Password</string>
     <string name="login_btn">Login</string>
+    <string name="register_Username">Username</string>
+    <string name="register_Password">Password</string>
+    <string name="register_btn">Register</string>
+    <string name="register_Verify_password">Verify Password</string>
+    <string name="register_nickname">Nickname</string>
+    <string name="login_Register_option">No Account Yet? Create an Account</string>
+    <string name="register_Back_to_login">Already Registered? Go Back to Login</string>
 </resources>
