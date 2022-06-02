@@ -5,6 +5,13 @@
       <map>
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/drawable-anydpi/ic_chat_add.xml" value="0.3645" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/drawable/generic.xml" value="0.345" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/drawable/gradient_background.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/activity_add_contact.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/activity_chats.xml" value="0.35989583333333336" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/chat_item.xml" value="0.24031007751937986" />
       </map>
     </option>
   </component>
