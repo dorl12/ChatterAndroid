@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/rounded_corner.xml" value="0.2585" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/rounded_corner_white.xml" value="0.2595" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_chat_content.xml" value="0.25416666666666665" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/message_item.xml" value="0.253125" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/message_item2.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.134" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.134" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/drawable/login_btn.xml" value="0.134" />
