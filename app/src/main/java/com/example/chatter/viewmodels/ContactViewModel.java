@@ -3,7 +3,7 @@ package com.example.chatter.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.chatter.entities.Contact;
+import com.example.chatter.Entities.Contact;
 
 import java.util.List;
 

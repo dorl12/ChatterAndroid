@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatter.R;
-import com.example.chatter.entities.Contact;
+import com.example.chatter.Entities.Contact;
 
 import java.util.List;
 

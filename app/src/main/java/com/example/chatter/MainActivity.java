@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ChatsActivity.class);
             startActivity(intent);
         });
+
+        binding.settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Settings.class);
+            startActivity(intent);
+        });
     }
 
 }
