@@ -6,23 +6,13 @@
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/rounded_corner.xml" value="0.2585" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/rounded_corner_white.xml" value="0.2595" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_chat_content.xml" value="0.25416666666666665" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_chats.xml" value="0.22135416666666666" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/message_item.xml" value="0.253125" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/message_item2.xml" value="0.20052083333333334" />
-        <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.134" />
-        <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.134" />
-        <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/drawable/login_btn.xml" value="0.134" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/drawable-anydpi/ic_chat_add.xml" value="0.3645" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/drawable/generic.xml" value="0.345" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/drawable/gradient_background.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/activity_add_contact.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/activity_chats.xml" value="0.35989583333333336" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/ChatterAndroid/app/src/main/res/layout/chat_item.xml" value="0.24031007751937986" />
-        <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_register.xml" value="0.264" />
       </map>
     </option>
   </component>
