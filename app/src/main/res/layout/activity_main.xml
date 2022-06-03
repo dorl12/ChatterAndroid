@@ -53,7 +53,6 @@
             android:inputType="textPassword" />
 
         <Button
-            //android:id="@+id/login_button"
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,6 +69,17 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:background="@null"
+            app:tint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_settings" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

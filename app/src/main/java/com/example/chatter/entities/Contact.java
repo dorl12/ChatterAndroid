@@ -1,4 +1,4 @@
-package com.example.chatter.entities;
+package com.example.chatter.Entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
