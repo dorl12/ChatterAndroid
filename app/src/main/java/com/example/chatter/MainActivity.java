@@ -7,20 +7,39 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.chatter.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
-    Button loginButton;
+//     Button loginButton;
+//     @Override
+//     protected void onCreate(Bundle savedInstanceState) {
+//         super.onCreate(savedInstanceState);
+//         setContentView(R.layout.activity_main);
+
+//         loginButton = findViewById(R.id.login_button);
+//         loginButton.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View view) {
+//                 Intent intent = new Intent(getApplicationContext(), ChatsActivity.class);
+//                 startActivity(intent);
+//             }
+
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.moveToRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
 
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ChatsActivity.class);
-                startActivity(intent);
-            }
+        // need to change to Chats Activity
+        binding.btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChatsActivity.class);
+            startActivity(intent);
         });
     }
 
