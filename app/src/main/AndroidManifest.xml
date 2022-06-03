@@ -17,7 +17,13 @@
         android:theme="@style/Theme.Chatter"
         tools:targetApi="31">
         <activity
+            android:name=".Settings"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatContent"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -28,6 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddContactActivity" />
+        <activity android:name=".ChatsActivity" />
     </application>
 
 </manifest>
