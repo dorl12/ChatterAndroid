@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/bg"
+        android:background="@drawable/ic_bg_login_register"
         android:fontFamily="cursive"
         android:paddingVertical="70dp"
         android:text="Register"

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.chatter.API.ContactAPI;
 import com.example.chatter.adapters.ChatsListAdapter;
 import com.example.chatter.Entities.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,7 +22,6 @@ import java.util.List;
 public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter.OnChatListener {
 
     List<Contact> contacts;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,9 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         final ChatsListAdapter adapter = new ChatsListAdapter(this, this);
         lstChats.setAdapter(adapter);
         lstChats.setLayoutManager(new LinearLayoutManager(this));
+
+        ContactAPI contactAPI = new ContactAPI();
+        contactAPI.get();
 
 
         contacts = new ArrayList<>();

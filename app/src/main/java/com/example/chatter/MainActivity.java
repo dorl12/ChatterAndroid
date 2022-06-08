@@ -7,22 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.chatter.API.ContactAPI;
 import com.example.chatter.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-//     Button loginButton;
-//     @Override
-//     protected void onCreate(Bundle savedInstanceState) {
-//         super.onCreate(savedInstanceState);
-//         setContentView(R.layout.activity_main);
-
-//         loginButton = findViewById(R.id.login_button);
-//         loginButton.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 Intent intent = new Intent(getApplicationContext(), ChatsActivity.class);
-//                 startActivity(intent);
-//             }
 
     private ActivityMainBinding binding;
 
@@ -36,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // need to change to Chats Activity
         binding.btnLogin.setOnClickListener(v -> {
             Intent intent = new Intent(this, ChatsActivity.class);
             startActivity(intent);
