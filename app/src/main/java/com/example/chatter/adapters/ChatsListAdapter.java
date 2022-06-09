@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.ChatViewHolder> {
 
-    class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
         private final TextView contact_name;
         private final TextView last_massage;
         private final TextView last_message_time;
@@ -33,16 +33,25 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.Chat
 
             this.onChatListener = onChatListener;
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
+        @Override
+        public boolean onLongClick(View view) {
+            onChatListener.OnLongChatClick(getAdapterPosition());
+            return true;
+        }
         @Override
         public void onClick(View view) {
             onChatListener.OnChatClick(getAdapterPosition());
         }
+
+
     }
 
     public interface OnChatListener {
         void OnChatClick(int position);
+        void OnLongChatClick(int position);
     }
 
     private final LayoutInflater cInflater;
