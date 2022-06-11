@@ -9,6 +9,7 @@ import com.example.chatter.R;
 public class Contact {
 
     @PrimaryKey(autoGenerate = true)
+    private int intId;
     private String id;
     private String name;
     private String server;
@@ -27,6 +28,14 @@ public class Contact {
         this.last = last;
         this.created = created;
         this.pic = pic;
+    }
+
+    public int getIntId() {
+        return this.intId;
+    }
+
+    public void setIntId(int intId) {
+        this.intId = intId;
     }
 
     public String getId() {

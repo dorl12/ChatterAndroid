@@ -15,21 +15,40 @@ import java.util.List;
 
 public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder> {
 
-    class MessageViewHolder extends RecyclerView.ViewHolder {
+    class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
         private final TextView messageContent;
         private final TextView messageTime;
 
-        private MessageViewHolder(View itemView) {
+        OnMessageListener onMessageListener;
+
+        private MessageViewHolder(View itemView, OnMessageListener onMessageListener) {
             super(itemView);
             messageContent = itemView.findViewById(R.id.messageContent);
             messageTime = itemView.findViewById(R.id.messageTime);
+            this.onMessageListener = onMessageListener;
+            itemView.setOnLongClickListener(this);
         }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onMessageListener.OnLongMessageClick(getAdapterPosition());
+            return true;
+        }
+    }
+
+    public interface OnMessageListener {
+        void OnLongMessageClick(int position);
     }
 
     private final LayoutInflater mInflater;
     private List<Message> messages;
+    private OnMessageListener onMessageListener;
 
-    public MessagesListAdapter(Context context) {mInflater = LayoutInflater.from(context);}
+    public MessagesListAdapter(Context context, OnMessageListener onMessageListener) {
+        mInflater = LayoutInflater.from(context);
+        this.onMessageListener = onMessageListener;
+
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -47,7 +66,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         } else {
             itemView = mInflater.inflate(R.layout.message_item2, parent, false);
         }
-        return new MessageViewHolder(itemView);
+        return new MessageViewHolder(itemView, onMessageListener);
     }
 
     @Override
