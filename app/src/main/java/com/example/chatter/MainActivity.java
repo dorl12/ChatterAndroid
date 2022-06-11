@@ -1,13 +1,12 @@
 package com.example.chatter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 
-import com.example.chatter.API.ContactAPI;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.chatter.API.LoginAPI;
 import com.example.chatter.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,12 +18,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        EditText editTxtUserName = binding.editTextTextUserName;
+        EditText editTxtPassword = binding.editTextTextPassword;
+
         binding.moveToRegister.setOnClickListener(v -> {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         });
 
         binding.btnLogin.setOnClickListener(v -> {
+            LoginAPI loginAPI = new LoginAPI();
+            loginAPI.post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
             Intent intent = new Intent(this, ChatsActivity.class);
             startActivity(intent);
         });
