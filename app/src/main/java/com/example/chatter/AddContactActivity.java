@@ -8,19 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.chatter.Entities.Contact;
-import com.example.chatter.Room.AppDB;
+import com.example.chatter.Room.ContactDB;
 import com.example.chatter.Room.ContactDao;
 
 public class AddContactActivity extends AppCompatActivity {
 
-    private AppDB db;
+    private ContactDB db;
     private ContactDao contactDao;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactDB")
+        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
                 .allowMainThreadQueries()
                 .build();
 

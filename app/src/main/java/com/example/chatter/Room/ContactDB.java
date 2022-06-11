@@ -11,6 +11,6 @@ import com.example.chatter.Entities.Contact;
 import com.example.chatter.Entities.Message;
 
 @Database(entities = {Contact.class}, version = 1)
-public abstract class AppDB extends RoomDatabase{
+public abstract class ContactDB extends RoomDatabase{
     public abstract ContactDao contactDao();
 }

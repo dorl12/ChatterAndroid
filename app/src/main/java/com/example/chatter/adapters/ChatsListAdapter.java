@@ -1,4 +1,4 @@
-package com.example.chatter.adapters;
+package com.example.chatter.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

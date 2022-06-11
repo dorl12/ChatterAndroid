@@ -1,17 +1,17 @@
 package com.example.chatter.Room;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.chatter.Entities.Contact;
 import com.example.chatter.Entities.Message;
 
 import java.util.List;
 
+@Dao
 public interface MessageDao {
-
     @Query("SELECT * FROM message")
     List<Message> index();
 
@@ -26,4 +26,7 @@ public interface MessageDao {
 
     @Delete
     void delete(Message...message);
+
+//    @Query("DELETE FROM message")
+//    void deleteAll();
 }
