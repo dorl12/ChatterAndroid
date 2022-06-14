@@ -1,5 +1,6 @@
 package com.example.chatter;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,15 +10,18 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.chatter.API.MessageAPI;
 import com.example.chatter.Adapters.MessagesListAdapter;
 import com.example.chatter.Entities.Message;
 import com.example.chatter.Room.MessageDB;
 import com.example.chatter.Room.MessageDao;
 import com.example.chatter.databinding.ActivityChatContentBinding;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +35,8 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
     private MessageDao messageDao;
     private MessagesListAdapter adapter;
     private String contactName;
+    // MutableLiveData<List<Message>> messages;
+    // String contactId = "dor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
         ImageButton btnSend = binding.sendButton;
         RecyclerView lstMessages = binding.messagesList;
         TextView ContactNickname = binding.contactNickname;
+        // messages = new MutableLiveData<>();
 
         Bundle bundle = getIntent().getExtras();
         contactName = bundle.getString("Nickname");
@@ -58,6 +65,7 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
         lstMessages.setAdapter(adapter);
         lstMessages.setLayoutManager(new LinearLayoutManager(this));
 
+
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
         String time = timeFormat.format(calendar.getTime());
@@ -69,10 +77,14 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
             }
         }
 
-
         adapter.setMessages(messages);
+  
+//        MessageAPI messageAPI = new MessageAPI(messages, contactId);
+//        messageAPI.get();
+//        messages.observe(this, (messageList) -> {
+//            adapter.setMessages(messageList);
+//        });
 
-        //List<Message> finalMessages = messages;
         btnSend.setOnClickListener(v -> {
             if(!txtInputBar.getText().toString().equals("")) {
                 Calendar cal = Calendar.getInstance();
