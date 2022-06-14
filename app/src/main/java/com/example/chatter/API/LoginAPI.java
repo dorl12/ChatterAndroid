@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.chatter.MyApplication;
 import com.example.chatter.R;
+import com.example.chatter.Token;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -33,8 +34,17 @@ public class LoginAPI {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                String token = response.body();
-                Log.i("MyPersonalToken", token);
+                if (response.isSuccessful()) {
+                    // Do your success stuff...
+                } else {
+                    try {
+                        String token = response.errorBody().string();
+                        Token.setToken(token);
+                        Log.i("Is it here: ", Token.getToken());
+                    } catch (Exception e) {
+                        Log.i("Exception: ", e.toString());
+                    }
+                }
             }
 
             @Override

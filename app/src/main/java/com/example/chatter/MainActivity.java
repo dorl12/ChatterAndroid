@@ -1,5 +1,7 @@
 package com.example.chatter;
 
+import static android.os.SystemClock.sleep;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(v -> {
             LoginAPI loginAPI = new LoginAPI();
             loginAPI.post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
+            sleep(500);
             Intent intent = new Intent(this, ChatsActivity.class);
             startActivity(intent);
         });

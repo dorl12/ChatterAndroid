@@ -1,6 +1,7 @@
 package com.example.chatter.API;
 
 import com.example.chatter.Entities.Contact;
+import com.example.chatter.Entities.Message;
 import com.example.chatter.Entities.User;
 import com.google.gson.JsonObject;
 
@@ -30,4 +31,7 @@ public interface WebServiceAPI {
 
     @DELETE("contacts/{id}")
     Call<Void> deleteContact(@Path("id") int id, @Header("Authorization") String authHeader);
+
+    @GET("contacts/{contact}/messages")
+    Call<List<Message>> getMessages(@Path("contact") String contact, @Header("Authorization") String authHeader);
 }
