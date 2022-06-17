@@ -6,26 +6,26 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.chatter.Entities.Message;
+import com.example.chatter.Entities.MessageForRoom;
 
 import java.util.List;
 
 @Dao
 public interface MessageDao {
-    @Query("SELECT * FROM message")
-    List<Message> index();
+    @Query("SELECT * FROM MessageForRoom")
+    List<MessageForRoom> index();
 
-    @Query("SELECT * FROM message WHERE id = :id")
-    Message get(int id);
+    @Query("SELECT * FROM MessageForRoom WHERE id = :id")
+    MessageForRoom get(int id);
 
     @Insert
-    void insert(Message...message);
+    void insert(MessageForRoom... messageForRoom);
 
     @Update
-    void update(Message...message);
+    void update(MessageForRoom... messageForRoom);
 
     @Delete
-    void delete(Message...message);
+    void delete(MessageForRoom... messageForRoom);
 
 //    @Query("DELETE FROM message")
 //    void deleteAll();

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.chatter.Entities.Message;
+import com.example.chatter.Entities.MessageForRoom;
 import com.example.chatter.R;
 
 import java.util.List;
@@ -41,18 +41,17 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     }
 
     private final LayoutInflater mInflater;
-    private List<Message> messages;
+    private List<MessageForRoom> message;
     private OnMessageListener onMessageListener;
 
     public MessagesListAdapter(Context context, OnMessageListener onMessageListener) {
         mInflater = LayoutInflater.from(context);
         this.onMessageListener = onMessageListener;
-
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).isSent()) {
+        if (message.get(position).isSent()) {
             return 1;
         }
         return 2;
@@ -71,24 +70,24 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        if (messages != null) {
-            final Message current = messages.get(position);
+        if (message != null) {
+            final MessageForRoom current = message.get(position);
             holder.messageContent.setText(current.getContent());
             holder.messageTime.setText(current.getCreated().toString());
         }
     }
 
-    public void setMessages(List<Message> s) {
-        messages = s;
+    public void setMessages(List<MessageForRoom> s) {
+        message = s;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (messages != null)
-            return messages.size();
+        if (message != null)
+            return message.size();
         else return 0;
     }
 
-    public List<Message> getMessages() { return messages; }
+    public List<MessageForRoom> getMessages() { return message; }
 }

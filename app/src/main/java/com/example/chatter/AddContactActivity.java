@@ -5,35 +5,34 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.chatter.Entities.Contact;
 import com.example.chatter.Room.ContactDB;
-import com.example.chatter.Room.ContactDao;
 
 public class AddContactActivity extends AppCompatActivity {
 
     private ContactDB db;
-    private ContactDao contactDao;
+//    private ContactDao contactDao;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
-                .allowMainThreadQueries()
-                .build();
+//        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
+//                .allowMainThreadQueries()
+//                .build();
+//
+//        contactDao = db.contactDao();
 
-        contactDao = db.contactDao();
-
-        Button addContactButton = findViewById(R.id.add_contact_button);
-        addContactButton.setOnClickListener(view -> {
+            Button addContactButton = findViewById(R.id.add_contact_button);
+            addContactButton.setOnClickListener(view -> {
             EditText addContactName = findViewById(R.id.addContactName);
             EditText addContactUsername = findViewById(R.id.addContactUsername);
             EditText addContactserver = findViewById(R.id.addContactserver);
-            Contact newContact = new Contact(addContactUsername.toString(), addContactName.getText().toString(), addContactserver.toString(), "No Messages", "00:00", R.drawable.generic_profile);
-            contactDao.insert(newContact);
-
+            Contact newContact = new Contact(addContactUsername.getText().toString(), addContactName.getText().toString(), addContactserver.getText().toString(), "No Messages", "00:00", R.drawable.generic_profile);
+        //            contactDao.insert(newContact);
+            singleAPI.getContactAPI().insert(newContact);
+            singleAPI.getInvitationAPI().post(addContactUsername.getText().toString(), addContactserver.getText().toString());
             finish();
         });
     }

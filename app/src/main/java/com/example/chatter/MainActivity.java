@@ -8,7 +8,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.chatter.API.LoginAPI;
 import com.example.chatter.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,10 +29,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.btnLogin.setOnClickListener(v -> {
-            LoginAPI loginAPI = new LoginAPI();
-            loginAPI.post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
+            singleAPI.setLoginAPI();
+            singleAPI.getLoginAPI().post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
+//            LoginAPI loginAPI = new LoginAPI();
+//            loginAPI.post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
             sleep(500);
+            Token.setUserID(editTxtUserName.getText().toString());
             Intent intent = new Intent(this, ChatsActivity.class);
+
             startActivity(intent);
         });
 

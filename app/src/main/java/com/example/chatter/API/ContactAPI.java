@@ -1,11 +1,14 @@
 package com.example.chatter.API;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.chatter.Entities.Contact;
 import com.example.chatter.MyApplication;
 import com.example.chatter.R;
 import com.example.chatter.Token;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,38 @@ public class ContactAPI {
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {
                 // note
+            }
+        });
+    }
+
+    public void insert(Contact contact) {
+//        Message newMsg = new Message(message.getId(), message.getContent(), message.getCreated(), message.isSent());
+        JsonObject contactData = new JsonObject();
+        contactData.addProperty("id", contact.getId());
+        contactData.addProperty("name", contact.getName());
+        contactData.addProperty("server", contact.getServer());
+//        contactData.addProperty("last", contact.getLast());
+//        contactData.addProperty("lastdate", contact.getCreated());
+        Call<Void> call = webServiceAPI.insertContact("Bearer " + Token.getToken(), contactData);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                new Thread(() -> {
+                    if (response.isSuccessful()) {
+                        get();
+                    } else {
+                        try {
+                            get();
+                        } catch (Exception e) {
+                            Log.i("Exception: ", e.toString());
+                        }
+                    }
+                }).start();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                int i = 1;
             }
         });
     }

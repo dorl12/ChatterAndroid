@@ -20,6 +20,9 @@ public interface WebServiceAPI {
     @POST("login")
     Call<String> generateToken(@Body JsonObject body);
 
+    @POST("register")
+    Call<Void> registerUser(@Body JsonObject body);
+
     @GET("api/Users/Index?id={id}")
     Call<User> getUser(@Path("id") String id, @Header("Authorization") String authHeader);
 
@@ -34,4 +37,13 @@ public interface WebServiceAPI {
 
     @GET("contacts/{contact}/messages")
     Call<List<Message>> getMessages(@Path("contact") String contact, @Header("Authorization") String authHeader);
+
+    @POST("contacts/{contact}/messages")
+    Call<Void> insertMessage(@Path("contact") String contact, @Header("Authorization") String authHeader, @Body JsonObject body);
+
+    @POST("contacts")
+    Call<Void> insertContact(@Header("Authorization") String authHeader, @Body JsonObject body);
+
+    @POST("invitations")
+    Call<Void> inviteContact(@Body JsonObject body);
 }

@@ -9,28 +9,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.chatter.API.ContactAPI;
-import com.example.chatter.Room.ContactDB;
-import com.example.chatter.Room.ContactDao;
 import com.example.chatter.Adapters.ChatsListAdapter;
 import com.example.chatter.Entities.Contact;
-import com.example.chatter.adapters.ChatsListAdapter;
+import com.example.chatter.Room.ContactDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter.OnChatListener {
 
-    //List<Contact> contacts;
+//    List<Contact> contacts;
     List<Contact> contacts1;
 
     private ContactDB db;
-    private ContactDao contactDao;
+//    private ContactDao contactDao;
     private ChatsListAdapter adapter;
-    // MutableLiveData<List<Contact>> contacts;
+     MutableLiveData<List<Contact>> contacts;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,24 +36,30 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         SwipeRefreshLayout refreshChatsLayout = findViewById(R.id.refreshChatsLayout);
         FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
         FloatingActionButton btnExit = findViewById(R.id.btnExit);
-        // contacts = new MutableLiveData<>();
+        contacts = new MutableLiveData<>();
 
         adapter = new ChatsListAdapter(this, this);
         lstChats.setAdapter(adapter);
         lstChats.setLayoutManager(new LinearLayoutManager(this));
 
-        // ContactAPI contactAPI = new ContactAPI(contacts);
-        // contactAPI.get();
-        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
-                .allowMainThreadQueries()
-                .build();
-        contactDao = db.contactDao();
-        contacts1 = contactDao.index();
-        adapter.setContacts(contacts1);
+        singleAPI.setInvitationAPI(Token.getUserID());
+        singleAPI.setContactAPI(contacts);
+        singleAPI.getContactAPI().get(); // Get all user's contacts
 
-        // contacts.observe(this, (contactList) -> {
-        //     adapter.setContacts(contactList);
-        // });
+
+//        ContactAPI contactAPI = new ContactAPI(contacts);
+//         contactAPI.get();
+//        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
+//                .allowMainThreadQueries()
+//                .build();
+//        contactDao = db.contactDao();
+//        contacts1 = contactDao.index();
+//        adapter.setContacts(contacts1);
+
+         contacts.observe(this, (contactList) -> {
+             adapter.setContacts(contactList);
+             contacts1 = contactList;
+         });
 
         lstChats.setClickable(true);
 
@@ -71,16 +73,16 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
             }
         });
 
-        lstChats.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v){
-                int position = 0;
-                Contact con = contacts1.remove(position);
-                contactDao.delete(con);
-                adapter.setContacts(contacts1);
-                return true;
-            }
-        });
+//        lstChats.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v){
+//                int position = 0;
+//                Contact con = contacts1.remove(position);
+//                contactDao.delete(con);
+//                adapter.setContacts(contacts1);
+//                return true;
+//            }
+//        });
 
     }
 
@@ -90,20 +92,21 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         Log.d("H","I" + position);
         Intent intent = new Intent(this, ChatContent.class);
         intent.putExtra("Nickname", contacts1.get(position).getName());
+        intent.putExtra("ID", contacts1.get(position).getId());
         startActivity(intent);
     }
 
     @Override
     public void OnLongChatClick(int position) {
-        Contact con = contacts1.remove(position);
-        contactDao.delete(con);
-        adapter.setContacts(contacts1);
+//        Contact con = contacts1.remove(position);
+//        contactDao.delete(con);
+//        adapter.setContacts(contacts1);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        contacts1 = contactDao.index();
-        adapter.setContacts(contacts1);
+//        contacts1 = contactDao.index();
+//        adapter.setContacts(contacts1);
     }
 }

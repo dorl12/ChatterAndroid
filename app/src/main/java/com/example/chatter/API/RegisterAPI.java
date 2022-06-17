@@ -13,12 +13,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginAPI {
+public class RegisterAPI {
 
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public LoginAPI() {
+    public RegisterAPI() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseURL))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -26,17 +26,19 @@ public class LoginAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
-    public void post(String username, String password) {
-        JsonObject loginData = new JsonObject();
-        loginData.addProperty("Id", username);
-        loginData.addProperty("Password", password);
-        Call<String> call = webServiceAPI.generateToken(loginData);
-        call.enqueue(new Callback<String>() {
+    public void post(String username, String password, String name) {
+        JsonObject registerData = new JsonObject();
+        registerData.addProperty("Id", username);
+        registerData.addProperty("Password", password);
+        registerData.addProperty("Name", name);
+        Call<Void> call = webServiceAPI.registerUser(registerData);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 new Thread(() -> {
                     if (response.isSuccessful()) {
                         // Do your success stuff...
+                        System.out.println("HERE");
                     } else {
                         try {
                             String token = response.errorBody().string();
@@ -50,7 +52,7 @@ public class LoginAPI {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                     int i = 1;
             }
         });
