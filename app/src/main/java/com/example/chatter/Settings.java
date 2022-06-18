@@ -1,11 +1,9 @@
 package com.example.chatter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.chatter.databinding.ActivityChatContentBinding;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.chatter.databinding.ActivitySettingsBinding;
 
 public class Settings extends AppCompatActivity {
@@ -20,8 +18,7 @@ public class Settings extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnExitSettings.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            finish();
         });
     }
 }

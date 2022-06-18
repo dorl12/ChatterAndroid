@@ -8,7 +8,7 @@ import com.example.chatter.Entities.Message;
 import com.example.chatter.Entities.MessageForRoom;
 import com.example.chatter.MyApplication;
 import com.example.chatter.R;
-import com.example.chatter.Token;
+import com.example.chatter.AppService;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class MessageAPI {
     }
 
     public void get() {
-        Call<List<Message>> call = webServiceAPI.getMessages(contactID, "Bearer " + Token.getToken());
+        Call<List<Message>> call = webServiceAPI.getMessages(contactID, "Bearer " + AppService.getToken());
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
@@ -79,7 +79,7 @@ public class MessageAPI {
         JsonObject msgsData = new JsonObject();
         msgsData.addProperty("content", message.getContent());
 //        msgsData.addProperty("contact", contactID);
-        Call<Void> call = webServiceAPI.insertMessage(contactID, "Bearer " + Token.getToken(), msgsData);
+        Call<Void> call = webServiceAPI.insertMessage(contactID, "Bearer " + AppService.getToken(), msgsData);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

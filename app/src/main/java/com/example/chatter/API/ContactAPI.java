@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.chatter.Entities.Contact;
 import com.example.chatter.MyApplication;
 import com.example.chatter.R;
-import com.example.chatter.Token;
+import com.example.chatter.AppService;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ContactAPI {
     }
 
     public void get() {
-        Call<List<Contact>> call = webServiceAPI.getContacts("Bearer " + Token.getToken());
+        Call<List<Contact>> call = webServiceAPI.getContacts("Bearer " + AppService.getToken());
         call.enqueue(new Callback<List<Contact>>() {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
@@ -63,7 +63,7 @@ public class ContactAPI {
         contactData.addProperty("server", contact.getServer());
 //        contactData.addProperty("last", contact.getLast());
 //        contactData.addProperty("lastdate", contact.getCreated());
-        Call<Void> call = webServiceAPI.insertContact("Bearer " + Token.getToken(), contactData);
+        Call<Void> call = webServiceAPI.insertContact("Bearer " + AppService.getToken(), contactData);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

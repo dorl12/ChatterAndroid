@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.chatter.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
+    MutableLiveData<String> isRegister = new MutableLiveData<>();
 
     private ActivityRegisterBinding binding;
 
@@ -22,14 +24,30 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
         });
         binding.btnRegister.setOnClickListener(v -> {
-            singleAPI.setRegisterAPI();
-            singleAPI.getRegisterAPI().post(binding.editTextTextUserName.getText().toString(),
+            SingeltonSerivce.setRegisterAPI(isRegister);
+            SingeltonSerivce.getLoginAPI();
+            SingeltonSerivce.getRegisterAPI().post(binding.editTextTextUserName.getText().toString(),
                     binding.editTextTextPassword.getText().toString(),
                     binding.editTextTextNickname.getText().toString());
-            Token.setUserID(binding.editTextTextUserName.getText().toString());
-            Intent intent = new Intent(this, ChatsActivity.class);
+            AppService.setUserID(binding.editTextTextUserName.getText().toString());
+        });
 
-            startActivity(intent);
+        isRegister.observe(this,(val)->{
+            if(val.equals("true")){
+                SingeltonSerivce.getLoginAPI().logIn(binding.editTextTextUserName.getText().toString(),
+                        binding.editTextTextPassword.getText().toString());
+            }
+            else{
+                int a =1 ;
+                // todo: make toast for error message
+            }
+        });
+
+        SingeltonSerivce.getHasToken().observe(this,(val)-> {
+            if (val) {
+                Intent intent = new Intent(this, ChatsActivity.class);
+                startActivity(intent);
+            }
         });
 
 

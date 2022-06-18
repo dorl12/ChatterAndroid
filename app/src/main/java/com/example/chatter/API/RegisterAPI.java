@@ -2,9 +2,10 @@ package com.example.chatter.API;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.chatter.MyApplication;
 import com.example.chatter.R;
-import com.example.chatter.Token;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -17,8 +18,10 @@ public class RegisterAPI {
 
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
+    MutableLiveData<String> isRegister;
 
-    public RegisterAPI() {
+    public RegisterAPI(MutableLiveData<String> isRegister) {
+        this.isRegister = isRegister;
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseURL))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -39,11 +42,11 @@ public class RegisterAPI {
                     if (response.isSuccessful()) {
                         // Do your success stuff...
                         System.out.println("HERE");
+                        isRegister.postValue("true");
                     } else {
                         try {
-                            String token = response.errorBody().string();
-                            Token.setToken(token);
-                            Log.i("Is it here: ", Token.getToken());
+                            String responseString = response.errorBody().string();
+                            isRegister.postValue(responseString);
                         } catch (Exception e) {
                             Log.i("Exception: ", e.toString());
                         }

@@ -1,10 +1,10 @@
 package com.example.chatter;
 
-public class Token {
+public class AppService {
     private static String token;
     private static String userID;
 
-    private Token() {
+    private AppService() {
         token = "";
     }
 

@@ -1,7 +1,5 @@
 package com.example.chatter;
 
-import static android.os.SystemClock.sleep;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -28,16 +26,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        binding.btnLogin.setOnClickListener(v -> {
-            singleAPI.setLoginAPI();
-            singleAPI.getLoginAPI().post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
-//            LoginAPI loginAPI = new LoginAPI();
-//            loginAPI.post(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
-            sleep(500);
-            Token.setUserID(editTxtUserName.getText().toString());
-            Intent intent = new Intent(this, ChatsActivity.class);
 
-            startActivity(intent);
+        binding.btnLogin.setOnClickListener(v -> {
+            SingeltonSerivce.getLoginAPI();
+            SingeltonSerivce.getLoginAPI().logIn(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
+            AppService.setUserID(editTxtUserName.getText().toString());
+
+        });
+
+        SingeltonSerivce.getLoginValue().observe(this, val->{
+            if (val.equals("true")){
+                Intent intent = new Intent(this, ChatsActivity.class);
+                startActivity(intent);
+            }else{
+                int a = 1;
+                // todo: create toast
+            }
         });
 
         binding.settingsButton.setOnClickListener(v -> {

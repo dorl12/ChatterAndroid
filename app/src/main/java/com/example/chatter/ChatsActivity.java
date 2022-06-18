@@ -42,19 +42,16 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         lstChats.setAdapter(adapter);
         lstChats.setLayoutManager(new LinearLayoutManager(this));
 
-        singleAPI.setInvitationAPI(Token.getUserID());
-        singleAPI.setContactAPI(contacts);
-        singleAPI.getContactAPI().get(); // Get all user's contacts
+        SingeltonSerivce.setContactAPI(contacts);
+        SingeltonSerivce.getContactAPI().get(); // Get all user's contacts
 
 
-//        ContactAPI contactAPI = new ContactAPI(contacts);
-//         contactAPI.get();
-//        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
-//                .allowMainThreadQueries()
-//                .build();
-//        contactDao = db.contactDao();
-//        contacts1 = contactDao.index();
-//        adapter.setContacts(contacts1);
+        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
+                .allowMainThreadQueries()
+                .build();
+        contactDao = db.contactDao();
+        contacts1 = contactDao.index();
+        adapter.setContacts(contacts1);
 
          contacts.observe(this, (contactList) -> {
              adapter.setContacts(contactList);
@@ -93,6 +90,7 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         Intent intent = new Intent(this, ChatContent.class);
         intent.putExtra("Nickname", contacts1.get(position).getName());
         intent.putExtra("ID", contacts1.get(position).getId());
+        intent.putExtra("contactServer", contacts1.get(position).getServer());
         startActivity(intent);
     }
 
@@ -106,6 +104,8 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
     @Override
     protected void onResume() {
         super.onResume();
+        SingeltonSerivce.getContactAPI().get(); // Get all user's contacts
+
 //        contacts1 = contactDao.index();
 //        adapter.setContacts(contacts1);
     }

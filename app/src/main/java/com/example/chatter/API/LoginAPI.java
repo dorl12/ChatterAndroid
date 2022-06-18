@@ -2,9 +2,10 @@ package com.example.chatter.API;
 
 import android.util.Log;
 
+import com.example.chatter.AppService;
 import com.example.chatter.MyApplication;
 import com.example.chatter.R;
-import com.example.chatter.Token;
+import com.example.chatter.SingeltonSerivce;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -26,7 +27,7 @@ public class LoginAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
-    public void post(String username, String password) {
+    public void logIn(String username, String password) {
         JsonObject loginData = new JsonObject();
         loginData.addProperty("Id", username);
         loginData.addProperty("Password", password);
@@ -38,13 +39,22 @@ public class LoginAPI {
                     if (response.isSuccessful()) {
                         // Do your success stuff...
                     } else {
+                        String returnValue = "";
                         try {
-                            String token = response.errorBody().string();
-                            Token.setToken(token);
-                            Log.i("Is it here: ", Token.getToken());
+                            returnValue = response.errorBody().string();
+                            Log.i("Is it here: ", AppService.getToken());
                         } catch (Exception e) {
                             Log.i("Exception: ", e.toString());
                         }
+                        if (response.code()==404){
+                            AppService.setToken(returnValue);
+                            SingeltonSerivce.getHasToken().postValue(true);
+                            SingeltonSerivce.getLoginValue().postValue("true");
+                        }else if (response.code() == 400){
+                            SingeltonSerivce.getLoginValue().postValue(returnValue);
+                        }
+
+
                     }
                 }).start();
             }

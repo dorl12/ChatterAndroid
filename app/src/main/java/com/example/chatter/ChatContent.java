@@ -49,6 +49,7 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
 
         Bundle bundle = getIntent().getExtras();
         contactName = bundle.getString("Nickname");
+        String contactServer = bundle.getString("contactServer");
         ContactNickname.setText(contactName);
 
 //        db = Room.databaseBuilder(getApplicationContext(), MessageDB.class, "MessageDB2")
@@ -75,8 +76,8 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
 //
 //        adapter.setMessages(messages);
 
-        singleAPI.setMessageAPI(messages, bundle.getString("ID"));
-        singleAPI.getMessageAPI().get();
+        SingeltonSerivce.setMessageAPI(messages, bundle.getString("ID"));
+        SingeltonSerivce.getMessageAPI().get();
 //        MessageAPI messageAPI = new MessageAPI(messages, bundle.getString("ID"));
 //        messageAPI.get();
         messages.observe(this, (messageList) -> {
@@ -94,7 +95,8 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
 //                messages.add(m);
 //                adapter.setMessages(messages);
 //                //messages.add(new Message(count++, txtInputBar.getText().toString(), timeOfMessage, true));
-                singleAPI.getMessageAPI().insert(m);
+                SingeltonSerivce.getMessageAPI().insert(m);
+                SingeltonSerivce.getUtilsAPI().transfer(m,contactServer);
                 txtInputBar.setText("");
             }
         });

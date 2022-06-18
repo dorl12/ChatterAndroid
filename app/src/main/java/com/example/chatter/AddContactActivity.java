@@ -31,8 +31,8 @@ public class AddContactActivity extends AppCompatActivity {
             EditText addContactserver = findViewById(R.id.addContactserver);
             Contact newContact = new Contact(addContactUsername.getText().toString(), addContactName.getText().toString(), addContactserver.getText().toString(), "No Messages", "00:00", R.drawable.generic_profile);
         //            contactDao.insert(newContact);
-            singleAPI.getContactAPI().insert(newContact);
-            singleAPI.getInvitationAPI().post(addContactUsername.getText().toString(), addContactserver.getText().toString());
+            SingeltonSerivce.getContactAPI().insert(newContact);
+            SingeltonSerivce.getUtilsAPI().invitations( addContactserver.getText().toString(),addContactserver.getText().toString());
             finish();
         });
     }
