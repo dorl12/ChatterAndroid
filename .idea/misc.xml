@@ -3,12 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/gradient_background.xml" value="0.1095" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/gradient_background_for_dark_mode.xml" value="0.1895" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/rounded_corner.xml" value="0.2585" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/drawable/rounded_corner_white.xml" value="0.2595" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_add_contact.xml" value="0.2453125" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_chat_content.xml" value="0.2453125" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_chats.xml" value="0.3145833333333333" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_horizontal.xml" value="0.1" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_register.xml" value="0.1" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout-land/activity_settings.xml" value="0.1" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_add_contact.xml" value="0.2546875" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_chat_content.xml" value="0.25416666666666665" />
-        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_chats.xml" value="0.22135416666666666" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_chats.xml" value="0.1" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_horizontal.xml" value="0.25364583333333335" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
+        <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/chat_item.xml" value="0.140625" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/message_item.xml" value="0.253125" />
         <entry key="..\:/Everything/Bar_Ilan_Computer_Sciense/YearB/SemesterB/Advanced_Programming_2/Android/app/src/main/res/layout/message_item2.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Dor Levi/AndroidStudioProjects/Chatter/app/src/main/res/layout/activity_login.xml" value="0.25" />

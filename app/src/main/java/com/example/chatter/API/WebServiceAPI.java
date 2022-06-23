@@ -46,4 +46,10 @@ public interface WebServiceAPI {
 
     @POST("invitations")
     Call<Void> inviteContact(@Body JsonObject body);
+
+    @POST("transfer")
+    Call<Void> transferMessage(@Body JsonObject body);
+
+    @POST("firebase")
+    Call<Void> sendFirebaseToken(@Body JsonObject body);
 }

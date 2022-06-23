@@ -1,10 +1,12 @@
 package com.example.chatter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.chatter.Adapters.ChatsListAdapter;
 import com.example.chatter.Entities.Contact;
-import com.example.chatter.Room.ContactDB;
+import com.example.chatter.Room.AppDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
 //    List<Contact> contacts;
     List<Contact> contacts1;
 
-    private ContactDB db;
+    private AppDB db;
 //    private ContactDao contactDao;
     private ChatsListAdapter adapter;
      MutableLiveData<List<Contact>> contacts;
@@ -42,18 +44,10 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         lstChats.setAdapter(adapter);
         lstChats.setLayoutManager(new LinearLayoutManager(this));
 
-        SingeltonSerivce.setContactAPI(contacts);
+//        SingeltonSerivce.setContactAPI(contacts);
         SingeltonSerivce.getContactAPI().get(); // Get all user's contacts
 
-
-        db = Room.databaseBuilder(getApplicationContext(), ContactDB.class, "ContactDB")
-                .allowMainThreadQueries()
-                .build();
-        contactDao = db.contactDao();
-        contacts1 = contactDao.index();
-        adapter.setContacts(contacts1);
-
-         contacts.observe(this, (contactList) -> {
+         SingeltonSerivce.getContacts().observe(this, (contactList) -> {
              adapter.setContacts(contactList);
              contacts1 = contactList;
          });
@@ -70,6 +64,10 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
             }
         });
 
+        btnExit.setOnClickListener(v -> {
+            finish();
+        });
+
 //        lstChats.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
 //            public boolean onLongClick(View v){
@@ -83,6 +81,8 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
 
     }
 
+
+
     // When click on contact Activate the function:
     @Override
     public void OnChatClick(int position) {
@@ -91,6 +91,7 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
         intent.putExtra("Nickname", contacts1.get(position).getName());
         intent.putExtra("ID", contacts1.get(position).getId());
         intent.putExtra("contactServer", contacts1.get(position).getServer());
+        SingeltonSerivce.setContactID(contacts1.get(position).getId());
         startActivity(intent);
     }
 
@@ -104,9 +105,25 @@ public class ChatsActivity extends AppCompatActivity implements ChatsListAdapter
     @Override
     protected void onResume() {
         super.onResume();
-        SingeltonSerivce.getContactAPI().get(); // Get all user's contacts
+//        SingeltonSerivce.getContactAPI().get(); // Get all user's contacts
 
 //        contacts1 = contactDao.index();
-//        adapter.setContacts(contacts1);
+        adapter.setContacts(contacts1);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {return;}
+        super.onConfigurationChanged(newConfig);
+
+        Intent intent = new Intent(this, HorizontalActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -3,8 +3,6 @@ package com.example.chatter.API;
 import android.util.Log;
 
 import com.example.chatter.AppService;
-import com.example.chatter.MyApplication;
-import com.example.chatter.R;
 import com.example.chatter.SingeltonSerivce;
 import com.google.gson.JsonObject;
 
@@ -21,7 +19,16 @@ public class LoginAPI {
 
     public LoginAPI() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseURL))
+                .baseUrl(AppService.getBaseURL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        webServiceAPI = retrofit.create(WebServiceAPI.class);
+    }
+
+    public void setUrl(String url){
+        String newUrl = "http://" + url + "/api/";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(newUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
@@ -53,8 +60,6 @@ public class LoginAPI {
                         }else if (response.code() == 400){
                             SingeltonSerivce.getLoginValue().postValue(returnValue);
                         }
-
-
                     }
                 }).start();
             }
@@ -62,6 +67,23 @@ public class LoginAPI {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                     int i = 1;
+            }
+        });
+    }
+
+    public void firebaseToken(String firebaseToken, String username) {
+        JsonObject firebaseData = new JsonObject();
+        firebaseData.addProperty("username", username);
+        firebaseData.addProperty("firebaseToken", firebaseToken);
+        Call<Void> call = webServiceAPI.sendFirebaseToken(firebaseData);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                int i = 1;
             }
         });
     }

@@ -75,7 +75,9 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.Chat
             final Contact curr = contacts.get(position);
             holder.contact_name.setText(curr.getName());
             holder.last_massage.setText(curr.getLast());
-            holder.last_message_time.setText(curr.getCreated());
+            if (curr.getCreated()!=null){
+                holder.last_message_time.setText(curr.getCreated().toString());
+            }
             holder.profile_image.setImageResource(curr.getPic());
         }
     }

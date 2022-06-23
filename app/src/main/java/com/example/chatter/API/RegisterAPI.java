@@ -4,8 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.chatter.MyApplication;
-import com.example.chatter.R;
+import com.example.chatter.AppService;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -23,7 +22,16 @@ public class RegisterAPI {
     public RegisterAPI(MutableLiveData<String> isRegister) {
         this.isRegister = isRegister;
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseURL))
+                .baseUrl(AppService.getBaseURL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        webServiceAPI = retrofit.create(WebServiceAPI.class);
+    }
+
+    public void setUrl(String url){
+        String newUrl = "http://" + url + "/api/";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(newUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);

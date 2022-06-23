@@ -2,22 +2,30 @@ package com.example.chatter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.chatter.databinding.ActivityRegisterBinding;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class RegisterActivity extends AppCompatActivity {
     MutableLiveData<String> isRegister = new MutableLiveData<>();
 
     private ActivityRegisterBinding binding;
+    private String firebaseToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(RegisterActivity.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            firebaseToken = newToken;
+        });
 
         binding.backToLogin.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
@@ -38,13 +46,13 @@ public class RegisterActivity extends AppCompatActivity {
                         binding.editTextTextPassword.getText().toString());
             }
             else{
-                int a =1 ;
-                // todo: make toast for error message
+                    Toast.makeText(MyApplication.getContext(), val, Toast.LENGTH_SHORT).show();
             }
         });
 
         SingeltonSerivce.getHasToken().observe(this,(val)-> {
             if (val) {
+                SingeltonSerivce.getLoginAPI().firebaseToken(firebaseToken, AppService.getUserID());
                 Intent intent = new Intent(this, ChatsActivity.class);
                 startActivity(intent);
             }

@@ -1,14 +1,10 @@
 package com.example.chatter.API;
 
-import android.util.Log;
-
-import androidx.lifecycle.MutableLiveData;
-
+import com.example.chatter.AppService;
 import com.example.chatter.Entities.Message;
 import com.example.chatter.Entities.MessageForRoom;
-import com.example.chatter.MyApplication;
-import com.example.chatter.R;
-import com.example.chatter.AppService;
+import com.example.chatter.Room.MessageDao;
+import com.example.chatter.SingeltonSerivce;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -24,81 +20,67 @@ public class MessageAPI {
 
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
-    MutableLiveData<List<MessageForRoom>> msgs;
-    String contactID;
+    private final MessageDao messageDao;
 
-    public MessageAPI(MutableLiveData<List<MessageForRoom>> msgsList, String contID) {
+    public MessageAPI(MessageDao messageDao) {
+        this.messageDao = messageDao;
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseURL))
+                .baseUrl(AppService.getBaseURL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
-        msgs = msgsList;
-        contactID = contID;
+    }
+
+    public void setUrl(String url){
+        String newUrl = "http://" + url + "/api/";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(newUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
     public void get() {
-        Call<List<Message>> call = webServiceAPI.getMessages(contactID, "Bearer " + AppService.getToken());
+        Call<List<Message>> call = webServiceAPI.getMessages(SingeltonSerivce.getContactID(), "Bearer " + AppService.getToken());
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 new Thread(() -> {
-                    if (response.isSuccessful()) {
-                        List<MessageForRoom> newMsgList = new ArrayList<>();
-                        for (Message message : response.body()) {
-                            MessageForRoom newMsg = new MessageForRoom(message.getId(), message.getContent(), message.getCreated(), message.isSent(), contactID);
-                            newMsgList.add(newMsg);
-                        }
-                        msgs.postValue(newMsgList);
-                    } else {
-                        try {
-                            //String token = response.errorBody().string();
-                            //Log.i("TRYING THIS: ", token);
-                            List<MessageForRoom> newMsgList = new ArrayList<>();
-                            for (Message message : response.body()) {
-                                MessageForRoom newMsg = new MessageForRoom(message.getId(), message.getContent(), message.getCreated(), message.isSent(), contactID);
-                                newMsgList.add(newMsg);
-                            }
-                            msgs.postValue(newMsgList);
-                        } catch (Exception e) {
-                            Log.i("Exception: ", e.toString());
-                        }
+                    List<MessageForRoom> newMsgList = new ArrayList<>();
+                    for (Message message : response.body()) {
+                        MessageForRoom newMsg = new MessageForRoom(message.getId(), message.getContent(), AppService.parseTime(message.getCreated()), message.isSent(), SingeltonSerivce.getContactID());
+                        newMsgList.add(newMsg);
                     }
+                    messageDao.clear();
+                    messageDao.insertList(newMsgList);
+                    SingeltonSerivce.getMessages().postValue(messageDao.index());
                 }).start();
             }
 
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
-                int i = 1;
+                SingeltonSerivce.getMessages().postValue(messageDao.index());
             }
         });
     }
 
     public void insert(MessageForRoom message) {
-//        Message newMsg = new Message(message.getId(), message.getContent(), message.getCreated(), message.isSent());
         JsonObject msgsData = new JsonObject();
         msgsData.addProperty("content", message.getContent());
-//        msgsData.addProperty("contact", contactID);
-        Call<Void> call = webServiceAPI.insertMessage(contactID, "Bearer " + AppService.getToken(), msgsData);
+        Call<Void> call = webServiceAPI.insertMessage(SingeltonSerivce.getContactID(), "Bearer " + AppService.getToken(), msgsData);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 new Thread(() -> {
-                    if (response.isSuccessful()) {
-                        get();
-                    } else {
-                        try {
-                            get();
-                        } catch (Exception e) {
-                            Log.i("Exception: ", e.toString());
-                        }
-                    }
+                    messageDao.insert(message);
+                    SingeltonSerivce.getMessages().postValue(messageDao.index());
                 }).start();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                int i = 1;
+                messageDao.insert(message);
+                SingeltonSerivce.getMessages().postValue(messageDao.index());
             }
         });
     }

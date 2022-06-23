@@ -1,16 +1,20 @@
 package com.example.chatter;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatter.databinding.ActivityMainBinding;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private String firebaseToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            firebaseToken = newToken;
+        });
+
+        AppService.setIsDark(false);
         EditText editTxtUserName = binding.editTextTextUserName;
         EditText editTxtPassword = binding.editTextTextPassword;
 
@@ -31,16 +41,21 @@ public class MainActivity extends AppCompatActivity {
             SingeltonSerivce.getLoginAPI();
             SingeltonSerivce.getLoginAPI().logIn(editTxtUserName.getText().toString(), editTxtPassword.getText().toString());
             AppService.setUserID(editTxtUserName.getText().toString());
-
         });
 
         SingeltonSerivce.getLoginValue().observe(this, val->{
             if (val.equals("true")){
-                Intent intent = new Intent(this, ChatsActivity.class);
+                SingeltonSerivce.getLoginAPI().firebaseToken(firebaseToken, AppService.getUserID());
+                int orientation = getResources().getConfiguration().orientation;
+                Intent intent;
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    intent = new Intent(this, HorizontalActivity.class);
+                } else {
+                    intent = new Intent(this, ChatsActivity.class);
+                }
                 startActivity(intent);
             }else{
-                int a = 1;
-                // todo: create toast
+                Toast.makeText(MyApplication.getContext(), val, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -49,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
 }
 //
 //package com.example.chatter;

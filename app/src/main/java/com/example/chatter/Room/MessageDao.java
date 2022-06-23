@@ -21,12 +21,15 @@ public interface MessageDao {
     @Insert
     void insert(MessageForRoom... messageForRoom);
 
+    @Insert
+    void insertList(List<MessageForRoom> messages);
+
     @Update
     void update(MessageForRoom... messageForRoom);
 
     @Delete
     void delete(MessageForRoom... messageForRoom);
 
-//    @Query("DELETE FROM message")
-//    void deleteAll();
+    @Query("DELETE from MessageForRoom")
+    void clear();
 }

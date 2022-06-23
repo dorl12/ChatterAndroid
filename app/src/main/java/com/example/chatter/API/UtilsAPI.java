@@ -1,9 +1,7 @@
 package com.example.chatter.API;
 
-import com.example.chatter.Entities.MessageForRoom;
-import com.example.chatter.MyApplication;
-import com.example.chatter.R;
 import com.example.chatter.AppService;
+import com.example.chatter.Entities.MessageForRoom;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -19,13 +17,14 @@ public class UtilsAPI {
 
     public UtilsAPI() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseURL))
+                .baseUrl(AppService.getBaseURL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
     public void setUrl(String url){
+
         String newUrl = "http://" + url + "/api/";
         retrofit = new Retrofit.Builder()
                 .baseUrl(newUrl)
@@ -35,11 +34,12 @@ public class UtilsAPI {
     }
 
     public void invitations(String contactID, String server) {
-        setUrl(server);
+        String fixedServer = AppService.fixServer(server);
+        setUrl(fixedServer);
         JsonObject inviteData = new JsonObject();
         inviteData.addProperty("from", AppService.getUserID());
         inviteData.addProperty("to", contactID);
-        inviteData.addProperty("server", server);
+        inviteData.addProperty("server", AppService.getBaseURL().substring(7,20));
         Call<Void> call = webServiceAPI.inviteContact(inviteData);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -56,12 +56,13 @@ public class UtilsAPI {
 
 
     public void transfer(MessageForRoom m, String server) {
-        setUrl(server);
-        JsonObject inviteData = new JsonObject();
-        inviteData.addProperty("from", AppService.getUserID());
-        inviteData.addProperty("to", m.getTo());
-        inviteData.addProperty("content", m.getContent());
-        Call<Void> call = webServiceAPI.inviteContact(inviteData);
+        String fixedServer = AppService.fixServer(server);
+        setUrl(fixedServer);
+        JsonObject transferData = new JsonObject();
+        transferData.addProperty("from", AppService.getUserID());
+        transferData.addProperty("to", m.getTo());
+        transferData.addProperty("content", m.getContent());
+        Call<Void> call = webServiceAPI.transferMessage(transferData);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

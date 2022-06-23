@@ -1,10 +1,13 @@
 package com.example.chatter;
 
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -76,20 +79,20 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
 //
 //        adapter.setMessages(messages);
 
-        SingeltonSerivce.setMessageAPI(messages, bundle.getString("ID"));
         SingeltonSerivce.getMessageAPI().get();
 //        MessageAPI messageAPI = new MessageAPI(messages, bundle.getString("ID"));
 //        messageAPI.get();
-        messages.observe(this, (messageList) -> {
+        SingeltonSerivce.getMessages().observe(this, (messageList) -> {
             adapter.setMessages(messageList);
             newMsgLst = messageList;
         });
+
 
         btnSend.setOnClickListener(v -> {
             if(!txtInputBar.getText().toString().equals("")) {
                 Calendar cal = Calendar.getInstance();
                 String timeOfMessage = timeFormat.format(cal.getTime());
-                MessageForRoom m = new MessageForRoom(count++, txtInputBar.getText().toString(), timeOfMessage, true, contactName);
+                MessageForRoom m = new MessageForRoom(count++, txtInputBar.getText().toString(), timeOfMessage, true, SingeltonSerivce.getContactID());
 //                messageDao.insert(m);
 //                allMessages = messageDao.index();
 //                messages.add(m);
@@ -111,9 +114,26 @@ public class ChatContent extends AppCompatActivity implements MessagesListAdapte
     }
 
     @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {return;}
+        super.onConfigurationChanged(newConfig);
+
+        Intent intent = new Intent(this, HorizontalActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     public void OnLongMessageClick(int position) {
 //        Message m = messages.remove(position);
 //        messageDao.delete(m);
 //        adapter.setMessages(messages);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SingeltonSerivce.getContactAPI().get();
+        finish();
     }
 }
